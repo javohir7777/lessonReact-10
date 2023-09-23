@@ -5,19 +5,24 @@ import { Fragment, useEffect, useState } from "react";
 
 const TeacherStudents = () => {
   const [student, setStudent] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     getStudents();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getStudents() {
     try {
+      setLoading(true);
       const { data } = await request.get(`categories/${id}/products`);
       setStudent(data);
       // console.log(data);
     } catch (err) {
       message.error(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -34,6 +39,7 @@ const TeacherStudents = () => {
         {student.map((student) => (
           <Col key={student.id} span={6}>
             <Card
+              loading={loading}
               hoverable
               style={{
                 width: 240,
