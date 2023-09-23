@@ -18,7 +18,6 @@ const TeacherStudents = () => {
       setLoading(true);
       const { data } = await request.get(`categories/${id}/products`);
       setStudent(data);
-      // console.log(data);
     } catch (err) {
       message.error(err);
     } finally {
@@ -26,11 +25,10 @@ const TeacherStudents = () => {
     }
   }
 
-  // const deleteStudent = async (id) => {
-  // let data = await request.delete(`categories/${id}/products/${id}`);
-  // console.log(data);
-  // getStudents();
-  // };
+  const deleteStudent = async (idx) => {
+    await request.delete(`categories/${id}/products/${idx}`);
+    getStudents();
+  };
 
   return (
     <Fragment>
@@ -53,9 +51,12 @@ const TeacherStudents = () => {
                 <Button
                   danger
                   type="primary"
-                  // onClick={() => deleteStudent(id)}
+                  onClick={() => {
+                    const idx = student.id;
+                    return deleteStudent(idx);
+                  }}
                 >
-                  Delete
+                  Delete ({student.id})
                 </Button>
               </div>
             </Card>
