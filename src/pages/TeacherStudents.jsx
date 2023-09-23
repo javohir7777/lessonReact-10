@@ -26,8 +26,11 @@ const TeacherStudents = () => {
   }
 
   const deleteStudent = async (idx) => {
-    await request.delete(`categories/${id}/products/${idx}`);
-    getStudents();
+    const con = confirm("Delete");
+    if (con) {
+      await request.delete(`categories/${id}/products/${idx}`);
+      getStudents();
+    }
   };
 
   return (

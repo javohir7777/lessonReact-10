@@ -127,9 +127,11 @@ const TeachersPage = () => {
   };
 
   const deleteData = async (id) => {
-    let { data } = await request.delete(`/categories/${id}`);
-    form.setFieldsValue(data);
-    getData();
+    const con = confirm("Delete");
+    if (con) {
+      await request.delete(`/categories/${id}`);
+      getData();
+    }
   };
 
   return (
